@@ -1,0 +1,72 @@
+﻿@model KCM.Data.Common.DataModels.OrderModel
+
+@{
+    ViewBag.Title = "Details";
+}
+<style>
+    .table {
+        background-position: center;
+        background-attachment: scroll;
+        background-size: 800px;
+        background-position-x: center;
+        background-image: url("https://images.pexels.com/photos/1145510/pexels-photo-1145510.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500")
+    }
+</style>
+<h2>Details</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerPhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerPhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "UpDateCustomer", new { CustomerId = item.CustomerId }) |
+                @Html.ActionLink("Details", "Details", new { CustomerId = item.CustomerId }) |
+                @Html.ActionLink("Delete", "DeleteCustomer", new { CustomerId = item.CustomerId })
+            </td>
+        </tr>
+        <p>
+            @Html.ActionLink("Edit", "UpDateCustomer", new { CustomerId = item.CustomerId }) |
+            @Html.ActionLink("Back to List", "Index")
+        </p>
+    }
+

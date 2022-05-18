@@ -1,0 +1,219 @@
+﻿@model KCM.UI.Models.TabStripModel
+@{
+    ViewBag.Title = "TabStripModel";
+}
+
+<h2>TabStripModel</h2>
+
+
+
+
+
+
+<div class="demo-section">
+    @(Html.Kendo().TabStrip()
+          .Name("tabstrip")
+          .Animation(animation =>
+              animation.Open(effect =>
+                  effect.Fade(FadeDirection.In)))
+          .Items(tabstrip =>
+          {
+              tabstrip.Add().Text("Customers")
+                  .Selected(true)
+                  .Content(@<text>
+                    <div class="weather">
+                         @(Html.Kendo().Grid(Model.Customers)
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.CustomerId).Title("CustomerId");
+        columns.Bound(p => p.CustomerName).Title("CustomerName");
+        columns.Bound(p => p.CustomerAddress).Title("Address");
+        columns.Bound(p => p.CustomerEmail).Title("EmailId");
+        columns.Bound(p => p.IsActive).Title("IsActive").HtmlAttributes(new { @class = "isActive" }).ClientTemplate(@"#= fnIsActive(data) # ");
+    })
+
+    .HtmlAttributes(new { style = "height: 500px;" })
+     .Pageable(pageable => pageable
+        .Input(true)
+        .Numeric(false)
+      )
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            //.Read(read => read.Action("Customers_Read", "Grid"))
+            .PageSize(20)
+        )
+        )
+                    </div>
+                  </text>);
+
+              tabstrip.Add().Text("Products")
+                  .Content(@<text>
+                    <div class="weather">
+@(Html.Kendo().Grid(Model.Products)
+        .Name("Grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.ProductId);
+            columns.Bound(p => p.Name);
+            columns.Bound(p => p.Description);
+
+        })
+        .HtmlAttributes(new { style = "height: 550px;" })
+        .Pageable( pageable => pageable
+            .Input(true)
+            .Numeric(false)
+         )
+
+        .Sortable()
+        .Scrollable(scr=>scr.Height(430))
+        .Filterable()
+.DataSource(dataSource => dataSource
+            .Ajax()
+            //.Read(read => read.Action("Customers_Read", "Grid"))
+            .PageSize(20)
+        )
+
+         )
+                    </div>
+
+                  </text>);
+
+              tabstrip.Add().Text("Orders")
+                  .Content(@<text>
+                    <div class="weather">
+                      @(Html.Kendo().Grid(Model.Orders)
+        .Name("Grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.ProductId);
+            columns.Bound(p => p.OrderId);
+            columns.Bound(p => p.CustomerId);
+
+        })
+        .HtmlAttributes(new { style = "height: 550px;" })
+        .Sortable()
+        .Scrollable(scr=>scr.Height(430))
+        .Filterable()
+.DataSource(dataSource => dataSource
+            .Ajax()
+            //.Read(read => read.Action("Customers_Read", "Grid"))
+            .PageSize(20)-->
+        )
+
+         )
+                    </div>
+
+                  <!--</text>);
+
+          })
+    )
+</div>
+@model KTS.UI.Models.Tabstripmodel
+@{ ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="demo-section">
+    @(Html.Kendo().TabStrip()
+          .Name("tabstrip")
+          .Animation(animation =>
+              animation.Open(effect =>
+                  effect.Fade(FadeDirection.In)))
+          .Items(tabstrip =>
+          {
+              tabstrip.Add().Text("Customers")
+                  .Selected(true)
+                  .Content(@<text>
+                    <div class="weather">
+                         @(Html.Kendo().Grid(Model.Customers)
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.CustomerId).Title("CustomerId");
+        columns.Bound(p => p.Name).Title("CustomerName");
+        columns.Bound(p => p.Address).Title("Address");
+        columns.Bound(p => p.EmailId).Title("EmailId");
+        columns.Bound(p => p.IsActive).Title("IsActive").HtmlAttributes(new { @class = "isActive" }).ClientTemplate(@"#= fnIsActive(data) # ");
+    })
+
+    .HtmlAttributes(new { style = "height: 500px;" })
+     .Pageable(pageable => pageable
+        .Input(true)
+        .Numeric(false)
+      )
+        .DataSource(dataSource => dataSource
+            .Ajax()
+            //.Read(read => read.Action("Customers_Read", "Grid"))
+            .PageSize(20)
+        )
+        )
+                    </div>
+                  </text>);
+
+              tabstrip.Add().Text("Products")
+                  .Content(@<text>
+                    <div class="weather">
+@(Html.Kendo().Grid(Model.Products)
+        .Name("Grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.ProductId);
+            columns.Bound(p => p.ProductName);
+            columns.Bound(p => p.Description);
+
+        })
+        .HtmlAttributes(new { style = "height: 550px;" })
+        .Pageable( pageable => pageable
+            .Input(true)
+            .Numeric(false)
+         )
+
+        .Sortable()
+        .Scrollable(scr=>scr.Height(430))
+        .Filterable()
+.DataSource(dataSource => dataSource
+            .Ajax()
+            //.Read(read => read.Action("Customers_Read", "Grid"))
+            .PageSize(20)
+        )
+
+         )
+                    </div>
+
+                  </text>);
+
+              tabstrip.Add().Text("Orders")
+                  .Content(@<text>
+                    <div class="weather">
+                      @(Html.Kendo().Grid(Model.Orders)
+        .Name("Grid")
+        .Columns(columns =>
+        {
+            columns.Bound(p => p.ProductId);
+            columns.Bound(p => p.OrderId);
+            columns.Bound(p => p.CustomerId);
+
+        })
+        .HtmlAttributes(new { style = "height: 550px;" })
+        .Sortable()
+        .Scrollable(scr=>scr.Height(430))
+        .Filterable()
+.DataSource(dataSource => dataSource
+            .Ajax()
+            //.Read(read => read.Action("Customers_Read", "Grid"))
+            .PageSize(20)
+        )
+
+         )
+                    </div>
+
+                  </text>);
+
+          })
+    )
+</div>
+
+
+

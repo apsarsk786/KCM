@@ -1,0 +1,232 @@
+﻿@model IEnumerable<KCM.Data.Common.DataModels.CustomerModel>
+
+@{
+    ViewBag.Title = "Index";
+
+}
+
+
+
+
+
+<h2>Index</h2>
+
+<div id="divCustomers">
+    @(Html.Kendo().Grid(Model)
+    .Name("Grid")
+    .Columns(columns =>
+    {
+
+        columns.Bound(p => p.CustomerId).Title(" CustomerId").Width(130);
+        columns.Bound(p => p.CustomerName).Title("CustomerName").Width(130);
+        columns.Bound(p => p.CustomerAddress).Title("CustomerAddress").Width(130);
+        columns.Bound(p => p.CustomerEmail).Title("CustomerEmail").Width(130);
+        columns.Bound(p => p.IsActive).Title("IsActive").HtmlAttributes(new {@class="IsActive"}).ClientTemplate(@"#=fnIsActive(data)#");
+
+
+    })
+    .HtmlAttributes(new { style = "height: 350px;" })
+    .Pageable( pageable => pageable
+        .Input(true)
+        .Numeric(false)
+     )
+    .Sortable()
+    .Scrollable(scr=>scr.Height(430))
+    .Filterable()
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(20)
+        .ServerOperation(false)
+     )
+)
+</div>
+@*<script language="javascript">
+
+        //function fnIsActive(data) {
+        //    debugger;
+        //    if (data.IsActive) {
+        //        return " <a><img src='https://freepngimg.com/thumb/green_tick/27890-7-green-tick-picture.png' style='width: 30px'></a>"
+        //    }
+        //    else {
+        //        return "<img src='data:image/png;base64,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' / style='width: 30px'>"
+        //    }
+        //}
+
+        //$(function () {
+        //    //function fnIsActive(this) {
+        //    //    debugger;
+        //    //}
+        //    $(".IsActive").click(function (e) {
+        //        debugger;
+        //        var dataItem = $("#Grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+        //        if (dataItem.IsActive) {
+        //            $(e.currentTarget).html("<image src='https://png.pngitem.com/pimgs/s/144-1442121_red-cross-mark-clipart-wrong-answer-cross-wrong.png' style='width: 30px'>");
+        //        }
+        //        else {
+        //            $(e.currentTarget).html("<image src='https://freepngimg.com/thumb/green_tick/27890-7-green-tick-picture.png' style='width: 30px'>");
+        //        }
+        //    });
+        //});
+
+    </script>*@
+<script language="javascript">
+    //function AjaxSearch(e) {
+    //    debugger;
+    //    var text = $("#txtSearch").val();
+    //    var searchUrl = "../Customer/Index?searchText=" + text;
+
+    //    $.ajax({
+    //        url: searchUrl,
+    //        type: "POST",
+    //        success: function (data) {
+    //            debugger;
+
+    //            $("#divCustomers").html(data);
+    //        }
+    //    });
+    ////}
+
+
+
+    function fnIsActive(data) {
+        debugger;
+        if (data.IsActive) {
+
+            return "<img src='https://freepngimg.com/thumb/green_tick/27890-7-green-tick-picture.png'/ style='width: 40px'>"//"<button kendoButton (click)="onButtonClick()">IsActive</button>"
+        }
+        else {
+            return "<img src='https://png.pngitem.com/pimgs/s/144-1442121_red-cross-mark-clipart-wrong-answer-cross-wrong.png'/ style='width: 40px'>"//"<button kendoButton (click)="onButtonClick()">InActive</button>"
+        }
+    }
+    $(function () {
+
+        $(".IsActive").click(function (e) {
+            debugger;
+            var dataItem = $("#Grid").data("kendoGrid").dataItem($(e.currentTarget).closest("tr"));
+            //if (dataItem.IsActive) {
+            //    $(e.currentTarget).html("<img src='../Images/InAct.png'/ style='width: 40px'>");
+            //}
+            //else {
+            //    $(e.currentTarget).html("<img src='../Images/IsAct.jpg'/ style='width: 40px'>");
+            //}
+            var text = dataItem.IsActive;
+            var Id = dataItem.CustomerId;//$("#Id").val();
+            //var databool = 'IsActive=' + name+'&Id='+Id;
+            $.ajax({
+
+                type: 'POST',
+
+                url: '../Customer/IsActive_Save/',
+                data: { isActive: text, customerId: Id },
+
+                success: function (data) {
+                    window.location.href;
+
+
+                }
+            }, 1);
+        });
+    });
+
+</script>
+<style>
+    .table {
+        color: #383030;
+        opacity: 0.8;
+        background-position: center;
+        background-attachment: scroll;
+        background-size: 400px;
+        background-position-x: center;
+        background-image: url("https://images.pexels.com/photos/1186100/pexels-photo-1186100.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500")
+    }
+</style>
+
+<div class="demo-section">
+    @(Html.Kendo().TabStrip()
+          .Name("tabstrip")
+          .Animation(animation =>
+              animation.Open(effect =>
+                  effect.Fade(FadeDirection.In)))
+          .Items(tabstrip =>
+          {
+              tabstrip.Add().Text("Paris")
+                  .Selected(true)
+                  .Content(@<text>
+                    <div class="weather">
+                    @Html.Action("Index")
+                    </div>
+                   
+                  </text>);
+
+              tabstrip.Add().Text("New York")
+                  .Content(@<text>
+                    <div class="weather">
+                        <h2>29<span>&ordm;C</span></h2>
+                        <p>Sunny weather in New York.</p>
+                    </div>
+                    <span class="sunny">&nbsp;</span>
+                  </text>);
+
+              tabstrip.Add().Text("Moscow")
+                  .Content(@<text>
+                    <div class="weather">
+                        <h2>16<span>&ordm;C</span></h2>
+                        <p>Cloudy weather in Moscow.</p>
+                    </div>
+                    <span class="cloudy">&nbsp;</span>
+                  </text>);
+
+              tabstrip.Add().Text("Sydney")
+                  .Content(@<text>
+                    <div class="weather">
+                        <h2>17<span>&ordm;C</span></h2>
+                        <p>Rainy weather in Sidney.</p>
+                    </div>
+                    <span class="rainy">&nbsp;</span>
+                  </text>);
+          })
+    )
+</div>
+
+<style>
+    .sunny, .cloudy, .rainy {
+        display: block;
+        margin: 30px auto 10px;
+        width: 128px;
+        height: 128px;
+        background: url('@Url.Content("~/Content/web/tabstrip/weather.png")') transparent no-repeat 0 0;
+    }
+
+    .cloudy{
+        background-position: -128px 0;
+    }
+
+    .rainy{
+        background-position: -256px 0;
+    }
+
+    .weather {
+        margin: 0 auto 30px;
+        text-align: center;
+    }
+
+    #tabstrip h2 {
+        font-weight: lighter;
+        font-size: 5em;
+        line-height: 1;
+        padding: 0 0 0 30px;
+        margin: 0;
+    }
+
+    #tabstrip h2 span {
+        background: none;
+        padding-left: 5px;
+        font-size: .3em;
+        vertical-align: top;
+    }
+
+    #tabstrip p {
+        margin: 0;
+        padding: 0;
+    }
+</style>
